@@ -25,6 +25,9 @@
               </p> 
               <p>  I got my M.S. degree(2018-2020) at the University of Michigan, majoring in Signal & Image Processing and Machine Learning in ECE. My Bachelor's degree (2014-2018) was received from the School of Electronic Information at Wuhan University in China. 
               </p>
+              <p style="color:red;">
+                I am actively looking for internships in 2023 Summer. 
+              </p>
               <p style="text-align:center">
                 <a href="mailto:ancao@umich.edu">Email</a> &nbsp/&nbsp
                 <a href="data/pdfs/cv.pdf">CV</a> &nbsp/&nbsp
@@ -46,6 +49,40 @@
         </tr>
       </tbody></table>
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+        <tr onmouseout="hexplane_stop()" onmouseover="hexplane_start()">
+          <td style="padding:20px;width:30%;vertical-align:middle">
+            <div class="one">
+              <div class="two" id='hexplane_image'>
+              </div>
+              <img src='data/image/HexPlane.png' width="200">
+              </div>
+            <script type="text/javascript">
+              function hexplane_start() {
+                document.getElementById('hexplane_image').style.opacity = "1";
+              }
+
+              function hexplane_stop() {
+                document.getElementById('hexplane_image').style.opacity = "0";
+              }
+              hexplane_stop()
+            </script>
+          </td>
+          <td style="padding:20px;width:70%;vertical-align:sub">
+            <a href="">
+              <papertitle>HexPlane: A Fast Representation for Dynamic Scenes</papertitle>
+            </a>
+            <br>
+            <strong>Ang Cao</strong>,
+            <a href="https://web.eecs.umich.edu/~justincj">Justin Johnson</a>
+            <br>
+            <em>Under Review</em>
+            <br>
+            <a href="">project page (coming soon)</a>
+            <p></p>
+            <p>An elegant representation for dynamic 3D scenes using six feature planes.</p>
+          </td>
+        </tr>
 
         <tr onmouseout="fwd_stop()" onmouseover="fwd_start()">
           <td style="padding:20px;width:30%;vertical-align:middle">
@@ -168,7 +205,7 @@
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr>
             <td style="padding:0px">
-              <br> Thanks to the <a href="https://github.com/jonbarron/jonbarron_website">template.</a>
+              <br> Huge thanks to <a href="https://jonbarron.info/">Jon Barron</a> for the awesome <a href="https://github.com/jonbarron/jonbarron_website">template</a>.
               <p style="text-align:right;font-size:small;">
             </td>
           </tr>
