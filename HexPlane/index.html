@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="HexPlane: A Fast Representation for Dynamic Scenes">
+  <meta name="keywords" content="HexPlane">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>HexPlane</title>
+
+  <script>
+    function initComparisons() {
+      var x, i;
+      /*find all elements with an "overlay" class:*/
+      x = document.getElementsByClassName("img-comp-overlay");
+      for (i = 0; i < x.length; i++) {
+        /*once for each "overlay" element:
+        pass the "overlay" element as a parameter when executing the compareImages function:*/
+        compareImages(x[i]);
+      }
+      function compareImages(img) {
+        var slider, img, clicked = 0, w, h;
+        /*get the width and height of the img element*/
+        w = img.offsetWidth;
+        h = img.offsetHeight;
+        /*set the width of the img element to 50%:*/
+        img.style.width = (w / 2) + "px";
+        /*create slider:*/
+        slider = document.createElement("DIV");
+        slider.setAttribute("class", "img-comp-slider");
+        /*insert slider*/
+        img.parentElement.insertBefore(slider, img);
+        /*position the slider in the middle:*/
+        slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
+        slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
+        /*execute a function when the mouse button is pressed:*/
+        slider.addEventListener("mousedown", slideReady);
+        /*and another function when the mouse button is released:*/
+        window.addEventListener("mouseup", slideFinish);
+        /*or touched (for touch screens:*/
+        slider.addEventListener("touchstart", slideReady);
+        /*and released (for touch screens:*/
+        window.addEventListener("touchend", slideFinish);
+        function slideReady(e) {
+          /*prevent any other actions that may occur when moving over the image:*/
+          e.preventDefault();
+          /*the slider is now clicked and ready to move:*/
+          clicked = 1;
+          /*execute a function when the slider is moved:*/
+          window.addEventListener("mousemove", slideMove);
+          window.addEventListener("touchmove", slideMove);
+        }
+        function slideFinish() {
+          /*the slider is no longer clicked:*/
+          clicked = 0;
+        }
+        function slideMove(e) {
+          var pos;
+          /*if the slider is no longer clicked, exit this function:*/
+          if (clicked == 0) return false;
+          /*get the cursor's x position:*/
+          pos = getCursorPos(e)
+          /*prevent the slider from being positioned outside the image:*/
+          if (pos < 0) pos = 0;
+          if (pos > w) pos = w;
+          /*execute a function that will resize the overlay image according to the cursor:*/
+          slide(pos);
+        }
+        function getCursorPos(e) {
+          var a, x = 0;
+          e = (e.changedTouches) ? e.changedTouches[0] : e;
+          /*get the x positions of the image:*/
+          a = img.getBoundingClientRect();
+          /*calculate the cursor's x coordinate, relative to the image:*/
+          x = e.pageX - a.left;
+          /*consider any page scrolling:*/
+          x = x - window.pageXOffset;
+          return x;
+        }
+        function slide(x) {
+          /*resize the image:*/
+          img.style.width = x + "px";
+          /*position the slider:*/
+          slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
+        }
+      }
+    }
+    </script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/umich.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">HexPlane: A Fast Representation for Dynamic Scenes</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+                <a href="https://caoang327.github.io">Ang Cao</a>,</span>
+            <span class="author-block">
+                <a href="https://web.eecs.umich.edu/~justincj">Justin Johnson</a> </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Michigan</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">      
+  <div class="container is-max-desktop">
+    <h2 class="title is-2 has-text-centered"> Abstract</h2>
+    <h2 class="subtitle has-text-justified">
+      Modeling and re-rendering dynamic 3D scenes is a challenging task in 3D vision.  
+      Many current approaches, building on NeRF, rely on implicit representations in this task, which are relatively slow because of tremendous MLP evaluations,   constraining real-world applications.
+  Surprisingly, we show that dynamic 3D scenes could be explicitly represented by six feature planes,  leading to an elegant solution called HexPlane.
+  As an explicit representation, HexPlane computes features of spacetime points by fusing vectors extracted from each plane, which is effective and highly efficient.
+     With a tiny MLP, it provides impressive results for dynamic novel view synthesis, matching the image quality of prior work but improving training time by more than 100x.
+  We conduct extensive ablations to investigate this representation and reveal its intriguing properties. 
+  Designed as a general representation, we hope HexPlane can broadly contribute to spacetime tasks and dynamic 3D applications.     
+    </h2>
+  </div>
+  </section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-2 has-text-centered"> Approah</h2>
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/images/method.pdf">
+      </video> -->
+      <!-- <embed src="./static/images/method.pdf" type="application/pdf"> -->
+      <img src='./static/images/method.png' >
+      <p></p>
+      <h2 class="subtitle has-text-justified">
+        HexPlane is a simple yet elegant solution to explicitly represent dynamic 3D scenes. 
+        It decomposes a 4D spacetime grid into six feature planes spanning each pair of coordinate axes (e.g. XY, ZT),
+        It computes a feature vector for a 4D point in spacetime by projecting the point onto each feature plane.
+        then aggregating the six resulting feature vectors.
+        The fused feature vector is then passed to a tiny MLP which predicts the color of the point;
+        novel views can then be rendered via volume rendering.      </h2>
+    </div>
+  </div>
+</section>
+
+
+          
+<section class="section">      
+  <div class="container">
+        <h2 class="title is-2 has-text-centered">Synthesis Results</h2>
+
+    <div class="columns is-centered is-full-width">
+
+      <div class="column">
+        <div class="content">
+        <video id="standup" autoplay="" controls="" muted="" loop="" height="100%">
+          <source src="./videos/Virtual_Camera_Cut_roasted_beef.mp4" type="video/mp4">
+        </video>
+        </div>
+      </div>
+        
+      <div class="column">
+          <div class="content">
+            <video id="balls" autoplay="" controls="" muted="" loop="" height="100%">
+              <source src="./videos/Test_View_Cut_roasted_beef.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+     
+<div class="section">
+  <div class="container">
+  <h2 class="title is-2 has-text-centered">Synthesis Results</h2>
+  <div class="columns is-centered is-full-width">
+    <div class="column">
+  <!-- <p>We visualize a feature field distilled from LSeg as a techer network by PCA. The flower scene is from <a href="https://bmild.github.io/llff/">LLFF</a></p> -->
+    <div class="img-comp-container">
+      <div class="img-comp-img">
+        <div style="width: 660px;">
+        <video class="video" autoplay="true" loop="true" autoplay muted >
+          <source src="./videos/Test_View_Flame_Steak_Depth.mp4">
+        </video>
+        </div>
+      </div>
+      <div class="img-comp-img img-comp-overlay">
+        <div style="width: 660px;">
+        <video class="video" autoplay="true" loop="true" autoplay muted>
+          <source src="./videos/Test_View_Flame_Steak.mp4">
+        </video>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <!-- <p>We visualize a feature field distilled from LSeg as a techer network by PCA. The flower scene is from <a href="https://bmild.github.io/llff/">LLFF</a></p> -->
+      <div class="img-comp-container">
+        <div class="img-comp-img">
+          <div style="width: 660px;">
+          <video class="video" autoplay="true" loop="true" autoplay muted>
+            <source src="./videos/Virtual_Camera_Flake_Steak_depth.mp4">
+          </video>
+          </div>
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+          <div style="width: 660px;">
+          <video class="video" autoplay="true" loop="true" autoplay muted>
+            <source src="./videos/Virtual_Camera_Flame_Steak.mp4">
+          </video>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+<script>
+  /*Execute a function that will execute an image compare function for each element with the img-comp-overlay class:*/
+  initComparisons();
+</script>
+</div>
+<br><br>
+<br><br>
+<style>
+  model-viewer {
+    width: 800px;
+    height: 600px;
+  }
+  </style>
+<div class="section">
+  <div class="container">
+
+  <h2 class="title is-2 has-text-centered">Mesh</h2>
+  <div class="columns is-centered is-full-width">
+    <div align="center">
+      Time&nbsp; &nbsp; &nbsp;<input id="valTime" type="range" min="0" max="0.95" value="0" step="0.05" oninput="showVal()" onchange="showVal()" />
+      <span id="range_roll" class="range-slider__value">0</span><br>
+    </div>
+    <div id="card" >
+      <!-- All you need to put beautiful, interactive 3D content on your site: -->
+      <model-viewer src="./standup_mesh/mesh_0_.glb"
+      shadow-intensity="1"
+      id="meshview"
+      camera-controls
+      exposure="0.36"
+      background-color: rgb(4, 4, 4);
+      >
+      </model-viewer>
+    </div>
+</div>
+</div>
+</div>  
+
+<script>
+  var NFrame = 20
+  var flag = false;
+  // var clicktime = time();//
+  var valTime = document.getElementById("valTime").value;
+  document.getElementById("meshview").src = "./standup_mesh/standup_" + (valTime * NFrame).toString() + ".glb";
+  function showVal(){
+    flag = true;
+    var valTime = document.getElementById("valTime").value;
+    document.getElementById("meshview").src = "./standup_mesh/standup_" + (valTime * NFrame).toString() + ".glb";
+  }
+  var cur_val = 0;
+  setInterval(()=>{
+    // if(time() - clicktime >= xxx){
+    //   flag = false;
+    // }
+    if(!flag){
+      document.getElementById("meshview").src = "./standup_mesh/standup_" + cur_val.toString() + ".glb";
+      cur_val = (cur_val + 1) % NFrame
+    } 
+  }, 500)
+  </script>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Cao2022FWD,
+    author    = {Cao, Ang and Johnson, Justin},
+    title     = {HexPlane: A Fast Representation for Dynamic Scenes},
+    journal   = {},
+    year      = {2023},
+    }</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <p>
+    Toyota Research Institute provided funds to support this work  but this article solely reflects the opinions and conclusions of its authors and not TRI or any other Toyota entity.
+     <!-- We thank Dandan Shan, Hao Ouyang, Jiaxin Xie, Linyi Jin, Shengyi Qian for helpful discussions. -->
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            The website code is borrowed from the  <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of Nerfies. We thank the authors for sharing the templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
+
+</body>
+</html>
