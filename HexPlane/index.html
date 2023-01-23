@@ -301,6 +301,7 @@
   initComparisons();
 </script>
 </div>
+
 <br><br>
 <br><br>
 <style>
@@ -317,7 +318,11 @@
   <div class="column">
     <div align="center">
       Time&nbsp; &nbsp; &nbsp;<input id="valTime1" type="range" min="0" max="0.95" value="0" step="0.05" oninput="showVal1()" onchange="showVal1()" />
-      <span id="range_roll" class="range-slider__value">0</span><br>
+      <!-- <span id="range_roll" class="range-slider__value">0</span><br> -->
+      &nbsp;
+      <button class="tablinks" style="font-size:22px; padding: 0.5% 0.5%;" onclick="onClick_1(event, true)">Play</button>
+      &nbsp;
+      <button class="tablinks" style="font-size:22px; padding: 0.5% 0.5%;" onclick="onClick_1(event, false)">Pause</button>
     </div>
     <div id="card" >
       <!-- All you need to put beautiful, interactive 3D content on your site: -->
@@ -334,7 +339,11 @@
   <div class="column">
     <div align="center">
       Time&nbsp; &nbsp; &nbsp;<input id="valTime2" type="range" min="0" max="0.95" value="0" step="0.05" oninput="showVal2()" onchange="showVal2()" />
-      <span id="range_roll" class="range-slider__value">0</span><br>
+      <!-- <span id="range_roll" class="range-slider__value">0</span> -->
+      &nbsp;
+      <button class="tablinks" style="font-size:22px; padding: 0.5% 0.5%;" onclick="onClick_2(event, true)">Play</button>
+      &nbsp;
+      <button class="tablinks" style="font-size:22px; padding: 0.5% 0.5%;" onclick="onClick_2(event, false)">Pause</button>
     </div>
     <div id="card" >
       <!-- All you need to put beautiful, interactive 3D content on your site: -->
@@ -360,7 +369,8 @@
   document.getElementById("meshview1").src = "./standup_mesh/standup_" + (valTime1 * NFrame).toString() + ".glb";
   function showVal1(){
     flag_1 = true;
-    var valTime1 = document.getElementById("valTime1").value;
+    valTime = document.getElementById("valTime1").value;
+    cur_val_1 = valTime * NFrame;
     document.getElementById("meshview1").src = "./standup_mesh/standup_" + (valTime1 * NFrame).toString() + ".glb";
   }
   var cur_val_1 = 0;
@@ -371,7 +381,8 @@
   document.getElementById("meshview2").src = "./standup_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
   function showVal2(){
     flag_2 = true;
-    var valTime2 = document.getElementById("valTime2").value;
+    var valTime = document.getElementById("valTime2").value;
+    cur_val_2 = valTime * NFrame;
     document.getElementById("meshview2").src = "./standup_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
   }
   var cur_val_2 = 0;
@@ -379,14 +390,39 @@
     if(!flag_1){
       document.getElementById("meshview1").src = "./standup_mesh/standup_" + cur_val_1.toString() + ".glb";
       cur_val_1 = (cur_val_1 + 1) % NFrame
+      document.getElementById("valTime1").value = cur_val_1 / 20
     } 
   }, 500);
   setInterval(()=>{
     if(!flag_2){
       document.getElementById("meshview2").src = "./standup_mesh/standup_" + cur_val_2.toString() + ".glb";
       cur_val_2 = (cur_val_2 + 1) % NFrame
+      document.getElementById("valTime2").value = cur_val_2 / 20
     } 
   }, 500);
+
+  function onClick_1(evt, state) {
+		  let i, tabcontent, tablinks;
+      if(state){
+        flag_1 = false;
+        evt.currentTarget.className += " active";
+      }
+      if(!state){
+        flag_1 = true;
+        evt.currentTarget.className += " dactive";
+      }
+		}
+    function onClick_2(evt, state) {
+		  let i, tabcontent, tablinks;
+      if(state){
+        flag_2 = false;
+        evt.currentTarget.className += " active";
+      }
+      if(!state){
+        flag_2 = true;
+        evt.currentTarget.className += " dactive";
+      }
+		}
   </script>
 
 <section class="section" id="BibTeX">
