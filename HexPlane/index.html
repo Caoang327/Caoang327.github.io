@@ -204,7 +204,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <h2 class="title is-2 has-text-centered"> Approah</h2>
+      <h2 class="title is-2 has-text-centered"> Approach</h2>
       <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
         <source src="./static/images/method.pdf">
       </video> -->
@@ -248,7 +248,6 @@
       </div>
     </div>
 </section>
-
      
 <div class="section">
   <div class="container">
@@ -313,7 +312,12 @@
 <div class="section">
   <div class="container">
 
-  <h2 class="title is-2 has-text-centered">Mesh</h2>
+  <h2 class="title is-2 has-text-centered">Mesh of Dynamic Scenes</h2>
+  <h2 class="subtitle has-text-justified">
+  We extract a set of <b>coarse</b> meshes for dynamic scenes and colorize them by quering vertices' colors from the MLP.
+  Please note that colors are not the same as them in images since we don't do volumetric rendering here. 
+  Feel free to drag your mouse to see different views.  
+  </h2>
   <div class="columns is-centered is-full-width">
   <div class="column">
     <div align="center">
@@ -347,7 +351,7 @@
     </div>
     <div id="card" >
       <!-- All you need to put beautiful, interactive 3D content on your site: -->
-      <model-viewer src="./standup_mesh/standup_0.glb"
+      <model-viewer src="./lego_mesh_mesh/standup_0.glb"
       shadow-intensity="1"
       id="meshview2"
       camera-controls
@@ -378,12 +382,12 @@
   var flag_2 = false;
   // var clicktime = time();//
   var valTime2 = document.getElementById("valTime2").value;
-  document.getElementById("meshview2").src = "./standup_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
+  document.getElementById("meshview2").src = "./lego_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
   function showVal2(){
     flag_2 = true;
     var valTime = document.getElementById("valTime2").value;
     cur_val_2 = valTime * NFrame;
-    document.getElementById("meshview2").src = "./standup_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
+    document.getElementById("meshview2").src = "./lego_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
   }
   var cur_val_2 = 0;
   setInterval(()=>{
@@ -395,7 +399,7 @@
   }, 500);
   setInterval(()=>{
     if(!flag_2){
-      document.getElementById("meshview2").src = "./standup_mesh/standup_" + cur_val_2.toString() + ".glb";
+      document.getElementById("meshview2").src = "./lego_mesh/standup_" + cur_val_2.toString() + ".glb";
       cur_val_2 = (cur_val_2 + 1) % NFrame
       document.getElementById("valTime2").value = cur_val_2 / 20
     } 
