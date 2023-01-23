@@ -314,46 +314,79 @@
 
   <h2 class="title is-2 has-text-centered">Mesh</h2>
   <div class="columns is-centered is-full-width">
+  <div class="column">
     <div align="center">
-      Time&nbsp; &nbsp; &nbsp;<input id="valTime" type="range" min="0" max="0.95" value="0" step="0.05" oninput="showVal()" onchange="showVal()" />
+      Time&nbsp; &nbsp; &nbsp;<input id="valTime1" type="range" min="0" max="0.95" value="0" step="0.05" oninput="showVal1()" onchange="showVal1()" />
       <span id="range_roll" class="range-slider__value">0</span><br>
     </div>
     <div id="card" >
       <!-- All you need to put beautiful, interactive 3D content on your site: -->
-      <model-viewer src="./standup_mesh/mesh_0_.glb"
+      <model-viewer src="./standup_mesh/standup_0.glb"
       shadow-intensity="1"
-      id="meshview"
+      id="meshview1"
       camera-controls
       exposure="0.36"
       background-color: rgb(4, 4, 4);
       >
       </model-viewer>
     </div>
+  </div>
+  <div class="column">
+    <div align="center">
+      Time&nbsp; &nbsp; &nbsp;<input id="valTime2" type="range" min="0" max="0.95" value="0" step="0.05" oninput="showVal2()" onchange="showVal2()" />
+      <span id="range_roll" class="range-slider__value">0</span><br>
+    </div>
+    <div id="card" >
+      <!-- All you need to put beautiful, interactive 3D content on your site: -->
+      <model-viewer src="./standup_mesh/standup_0.glb"
+      shadow-intensity="1"
+      id="meshview2"
+      camera-controls
+      exposure="0.36"
+      background-color: rgb(4, 4, 4);
+      >
+      </model-viewer>
+    </div>
+  </div>
 </div>
 </div>
 </div>  
 
 <script>
   var NFrame = 20
-  var flag = false;
+  var flag_1 = false;
   // var clicktime = time();//
-  var valTime = document.getElementById("valTime").value;
-  document.getElementById("meshview").src = "./standup_mesh/standup_" + (valTime * NFrame).toString() + ".glb";
-  function showVal(){
-    flag = true;
-    var valTime = document.getElementById("valTime").value;
-    document.getElementById("meshview").src = "./standup_mesh/standup_" + (valTime * NFrame).toString() + ".glb";
+  var valTime1 = document.getElementById("valTime1").value;
+  document.getElementById("meshview1").src = "./standup_mesh/standup_" + (valTime1 * NFrame).toString() + ".glb";
+  function showVal1(){
+    flag_1 = true;
+    var valTime1 = document.getElementById("valTime1").value;
+    document.getElementById("meshview1").src = "./standup_mesh/standup_" + (valTime1 * NFrame).toString() + ".glb";
   }
-  var cur_val = 0;
+  var cur_val_1 = 0;
+
+  var flag_2 = false;
+  // var clicktime = time();//
+  var valTime2 = document.getElementById("valTime2").value;
+  document.getElementById("meshview2").src = "./standup_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
+  function showVal2(){
+    flag_2 = true;
+    var valTime2 = document.getElementById("valTime2").value;
+    document.getElementById("meshview2").src = "./standup_mesh/standup_" + (valTime2 * NFrame).toString() + ".glb";
+  }
+  var cur_val_2 = 0;
   setInterval(()=>{
-    // if(time() - clicktime >= xxx){
-    //   flag = false;
-    // }
-    if(!flag){
-      document.getElementById("meshview").src = "./standup_mesh/standup_" + cur_val.toString() + ".glb";
-      cur_val = (cur_val + 1) % NFrame
+    if(!flag_1){
+      document.getElementById("meshview1").src = "./standup_mesh/standup_" + cur_val_1.toString() + ".glb";
+      cur_val_1 = (cur_val_1 + 1) % NFrame
     } 
-  }, 500)
+  }, 500);
+  setInterval(()=>{
+    if(!flag_2){
+      document.getElementById("meshview2").src = "./standup_mesh/standup_" + cur_val_2.toString() + ".glb";
+      cur_val_2 = (cur_val_2 + 1) % NFrame
+    } 
+  }, 500);
   </script>
 
 <section class="section" id="BibTeX">
