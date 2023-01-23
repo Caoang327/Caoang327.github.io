@@ -139,7 +139,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href=""
+                <a href="./HexPlane.pdf"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -189,13 +189,16 @@
   <div class="container is-max-desktop">
     <h2 class="title is-2 has-text-centered"> Abstract</h2>
     <h2 class="subtitle has-text-justified">
+      HexPlane is a fast and explicit representation for dynamic 3D scenes. 
+    </h2>
+    <h2 class="subtitle has-text-justified">
       Modeling and re-rendering dynamic 3D scenes is a challenging task in 3D vision.  
       Many current approaches, building on NeRF, rely on implicit representations in this task, which are relatively slow because of tremendous MLP evaluations,   constraining real-world applications.
-  Surprisingly, we show that dynamic 3D scenes could be explicitly represented by six feature planes,  leading to an elegant solution called HexPlane.
-  As an explicit representation, HexPlane computes features of spacetime points by fusing vectors extracted from each plane, which is effective and highly efficient.
+      Surprisingly, we show that dynamic 3D scenes could be explicitly represented by six feature planes,  leading to an elegant solution called HexPlane.
+    As an explicit representation, HexPlane computes features of spacetime points by fusing vectors extracted from each plane, which is effective and highly efficient.
      With a tiny MLP, it provides impressive results for dynamic novel view synthesis, matching the image quality of prior work but improving training time by more than 100x.
-  We conduct extensive ablations to investigate this representation and reveal its intriguing properties. 
-  Designed as a general representation, we hope HexPlane can broadly contribute to spacetime tasks and dynamic 3D applications.     
+    We conduct extensive ablations to investigate this representation and reveal its intriguing properties. 
+    Designed as a general representation, we hope HexPlane can broadly contribute to spacetime tasks and dynamic 3D applications.     
     </h2>
   </div>
   </section>
@@ -210,10 +213,9 @@
       </video> -->
       <!-- <embed src="./static/images/method.pdf" type="application/pdf"> -->
       <img src='./static/images/method.png' >
-      <p></p>
+      <br><br>
       <h2 class="subtitle has-text-justified">
-        HexPlane is a simple yet elegant solution to explicitly represent dynamic 3D scenes. 
-        It decomposes a 4D spacetime grid into six feature planes spanning each pair of coordinate axes (e.g. XY, ZT),
+        HexPlane is an elegant solution to explicitly represent dynamic 3D scenes, decomposing a 4D spacetime grid into six feature planes spanning each pair of coordinate axes (e.g., XY, ZT).
         It computes a feature vector for a 4D point in spacetime by projecting the point onto each feature plane.
         then aggregating the six resulting feature vectors.
         The fused feature vector is then passed to a tiny MLP which predicts the color of the point;
@@ -226,14 +228,23 @@
           
 <section class="section">      
   <div class="container">
-        <h2 class="title is-2 has-text-centered">Synthesis Results</h2>
+        <h2 class="title is-2 has-text-centered">Synthesis Results for Dynamic Scenes</h2>
 
+        <h2 class="subtitle has-text-justified">
+          Here we show synthesis results using HexPlane as the representation in <a href="https://neural-3d-video.github.io/">Plenoptic Video Dataset</a>
+          using both test view and virtual camera trajectories, which dataset contains high-resolution videos with challenging content and visual appearance.
+        </h2>
+
+        <h2 class="subtitle has-text-justified">
+        Current <a href="https://neural-3d-video.github.io/">MLP-based method</a> requires over 1400 GPU hours of training for a single view,
+        while our method finishes it within 10 hours with the same quality, which is over <b>100x</b> accelerations.
+        </h2>
     <div class="columns is-centered is-full-width">
 
       <div class="column">
         <div class="content">
         <video id="standup" autoplay="" controls="" muted="" loop="" height="100%">
-          <source src="./videos/Virtual_Camera_Cut_roasted_beef.mp4" type="video/mp4">
+          <source src="./videos/Test_View_Cut_roasted_beef.mp4" type="video/mp4">
         </video>
         </div>
       </div>
@@ -241,7 +252,7 @@
       <div class="column">
           <div class="content">
             <video id="balls" autoplay="" controls="" muted="" loop="" height="100%">
-              <source src="./videos/Test_View_Cut_roasted_beef.mp4" type="video/mp4">
+              <source src="./videos/Virtual_Camera_Cut_roasted_beef.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -251,7 +262,10 @@
      
 <div class="section">
   <div class="container">
-  <h2 class="title is-2 has-text-centered">Synthesis Results</h2>
+  <h2 class="title is-2 has-text-centered">Synthesized Depths</h2>
+  <h2 class="subtitle has-text-justified">
+    HexPlane could both faithfully synthesize complicated appearance like flames and reconstruct good geometries of dynamic 3D scenes.
+  </h2>
   <div class="columns is-centered is-full-width">
     <div class="column">
   <!-- <p>We visualize a feature field distilled from LSeg as a techer network by PCA. The flower scene is from <a href="https://bmild.github.io/llff/">LLFF</a></p> -->
@@ -314,8 +328,8 @@
 
   <h2 class="title is-2 has-text-centered">Mesh of Dynamic Scenes</h2>
   <h2 class="subtitle has-text-justified">
-  We extract a set of <b>coarse</b> meshes for dynamic scenes and colorize them by quering vertices' colors from the MLP.
-  Please note that colors are not the same as them in images since we don't do volumetric rendering here. 
+  We extract a set of <b>coarse</b> meshes for dynamic scenes and colorize them by querying vertices' colors from the MLP.
+  Please note that colors are <b>not</b>  the same as those in rendered images since we don't do volumetric rendering here. 
   Feel free to drag your mouse to see different views.  
   </h2>
   <div class="columns is-centered is-full-width">
@@ -396,14 +410,14 @@
       cur_val_1 = (cur_val_1 + 1) % NFrame
       document.getElementById("valTime1").value = cur_val_1 / 20
     } 
-  }, 500);
+  }, 250);
   setInterval(()=>{
     if(!flag_2){
       document.getElementById("meshview2").src = "./lego_mesh/standup_" + cur_val_2.toString() + ".glb";
       cur_val_2 = (cur_val_2 + 1) % NFrame
       document.getElementById("valTime2").value = cur_val_2 / 20
     } 
-  }, 500);
+  }, 250);
 
   function onClick_1(evt, state) {
 		  let i, tabcontent, tablinks;
@@ -429,9 +443,13 @@
 		}
   </script>
 
+
+<br><hr>
+
+
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
+    <h2 class="title is-2 has-text-centered">BibTeX</h2>
     <pre><code>@article{Cao2022FWD,
     author    = {Cao, Ang and Johnson, Justin},
     title     = {HexPlane: A Fast Representation for Dynamic Scenes},
@@ -445,8 +463,8 @@
   <div class="container is-max-desktop content">
     <h2 class="title">Acknowledgement</h2>
     <p>
-    Toyota Research Institute provided funds to support this work  but this article solely reflects the opinions and conclusions of its authors and not TRI or any other Toyota entity.
-     <!-- We thank Dandan Shan, Hao Ouyang, Jiaxin Xie, Linyi Jin, Shengyi Qian for helpful discussions. -->
+      Toyota Research Institute provided funds to support this work but this article solely reflects the opinions and conclusions of its authors and not TRI or any other Toyota entity.
+      We thank Mohamed El Banani, Ziyang Chen, Linyi Jin and Shengyi Qian for helpful discussions.     <!-- We thank Dandan Shan, Hao Ouyang, Jiaxin Xie, Linyi Jin, Shengyi Qian for helpful discussions. -->
     </p>
   </div>
 </section>
