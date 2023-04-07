@@ -52,18 +52,57 @@
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
           <tr>
           <td style="padding:20px;width:100%;vertical-align:middle">
-            <heading>Research</heading>
+            <heading>Research</heading> <p>* indicates joint authorship</p>
           </td>
         </tr>
       </tbody></table>
       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <tr onmouseout="text2room_stop()" onmouseover="text2room_start()">
+          <td style="padding:20px;width:30%;vertical-align:middle">
+            <div class="one">
+              <div class="two" id='text2room_image'>
+              </div>
+              <img src='data/image/text2room.gif' width="200">
+              </div>
+            <script type="text/javascript">
+              function text2room_start() {
+                document.getElementById('text2room_image').style.opacity = "1";
+              }
+
+              function text2room_stop() {
+                document.getElementById('text2room_image').style.opacity = "0";
+              }
+              hexplane_stop()
+            </script>
+          </td>
+          <td style="padding:20px;width:70%;vertical-align:sub">
+            <a href="">
+              <papertitle>Text2Room: Extracting Textured 3D Meshes from 2D Text-to-Image Models</papertitle>
+            </a>
+            <br>
+            <a href="https://niessnerlab.org/members/lukas_hoellein/profile.html">Lukas Höllein *</a>,
+            <strong> Ang Cao *</strong>,
+            <a href="https://andrewowens.com/"> Andrew Owens</a>,
+            <a href="https://web.eecs.umich.edu/~justincj"> Justin Johnson</a>,
+            <a href="https://niessnerlab.org/members/matthias_niessner/profile.html"> Matthias Nießner</a>
+            <br>
+            <em>arXiv</em>, 2023
+            <br>
+            <a href="https://lukashoel.github.io/text-to-room/">project page</a>/
+            <a href="https://arxiv.org/abs/2303.11989">arXvi</a>/
+            <a href="https://www.youtube.com/watch?v=fjRnFL91EZc&feature=youtu.be&ab_channel=MatthiasNiessner">video</a>/
+            <a href="https://github.com/lukasHoel/text2room">code</a>
+            <p></p>
+            <p>We generate meshes of full 3D rooms using text-to-image models.</p>
+          </td>
+        </tr>
 
         <tr onmouseout="hexplane_stop()" onmouseover="hexplane_start()">
           <td style="padding:20px;width:30%;vertical-align:middle">
             <div class="one">
               <div class="two" id='hexplane_image'>
               </div>
-              <img src='data/image/HexPlane.png' width="200">
+              <img src='data/image/HexPlane.gif' width="200">
               </div>
             <script type="text/javascript">
               function hexplane_start() {
@@ -84,9 +123,12 @@
             <strong>Ang Cao</strong>,
             <a href="https://web.eecs.umich.edu/~justincj">Justin Johnson</a>
             <br>
-            <em>Under Review</em>
+            <em>CVPR</em>, 2023
             <br>
-            <a href="https://caoang327.github.io/HexPlane/">project page</a>
+            <a href="https://caoang327.github.io/HexPlane/">project page</a>/
+            <a href="https://arxiv.org/abs/2301.09632">arXvi</a>/
+            <a href="">video</a>/
+            <a href="https://github.com/Caoang327/HexPlane">code</a>
             <p></p>
             <p>An elegant representation for dynamic 3D scenes using six feature planes.</p>
           </td>

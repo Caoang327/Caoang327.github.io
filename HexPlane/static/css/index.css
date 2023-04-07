@@ -1,7 +1,10 @@
 body {
   font-family: 'Noto Sans', sans-serif;
 }
-
+.center {
+  text-align: center;
+  font-weight: bolder;
+}
 
 .footer .icon-link {
     font-size: 25px;
@@ -57,7 +60,7 @@ body {
 
 .publication-venue {
     color: #555;
-    width: fit-content;
+    font-family: 'Google Sans', sans-serif;
     font-weight: bold;
 }
 
