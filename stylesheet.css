@@ -507,6 +507,14 @@ span.highlight {
   font-weight: 400;
 }
 
+.hero-meta-question {
+  max-width: 680px;
+  margin: 20px 0 0;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.62;
+}
+
 .hero-background {
   max-width: 700px;
   margin: 24px 0 20px;
@@ -1097,6 +1105,7 @@ td > img {
   }
 
   .hero-lede,
+  .hero-meta-question,
   .hero-background {
     font-size: 17px;
   }
@@ -1175,6 +1184,7 @@ td > img {
   }
 
   .hero-lede,
+  .hero-meta-question,
   .hero-background {
     font-size: 16px;
   }
